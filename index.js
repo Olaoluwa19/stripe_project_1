@@ -1,12 +1,23 @@
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
+// built-in middleware to handle url encoded data i.e form data
+app.use(express.urlencoded({ extended: false }));
+
+// built-in middleware for json
+app.use(express.json());
+
+// serve static files
+app.use("/", express.static(path.join(__dirname, "/public")));
+
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-app.get("/", (req, res) => {
-  res.render("index.ejs");
-});
+// ROUTE
+app.use("/", require("./routes/api"));
 
-app.listen(300, () => console.log("Server started on port 3000"));
+app.listen(3000, () => console.log("Server started on port 3000"));
