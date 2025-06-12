@@ -11,7 +11,8 @@ const paymentSuccess = async (req, res) => {
 };
 
 const paymentCancel = async (req, res) => {
-  res.send("Payment cancelled. Please try again.");
+  //   res.send("Payment cancelled. Please try again.");
+  res.redirect("/");
 };
 
 module.exports = { handleCheckout, paymentSuccess, paymentCancel };
