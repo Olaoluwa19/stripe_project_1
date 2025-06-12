@@ -1,4 +1,8 @@
-const { getStripeSession } = require("../services/checkout");
+const {
+  getStripeSession,
+  retrieveStripeSession,
+  retrieveLineItems,
+} = require("../services/stripeServices");
 
 const handleCheckout = async (req, res) => {
   const session = await getStripeSession();
@@ -7,6 +11,14 @@ const handleCheckout = async (req, res) => {
 };
 
 const paymentSuccess = async (req, res) => {
+  const sessionId = req.query.session_id;
+  const session = await retrieveStripeSession(sessionId);
+  const lineItems = await retrieveLineItems(sessionId);
+
+  //   const result = { session, lineItems };
+
+  console.log([JSON.stringify(session), JSON.stringify(lineItems)]);
+
   res.send("Payment successful! Thank you for your purchase.");
 };
 
