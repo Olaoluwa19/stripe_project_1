@@ -17,7 +17,10 @@ const paymentSuccess = async (req, res) => {
 
   //   const result = { session, lineItems };
 
-  console.log([JSON.stringify(session), JSON.stringify(lineItems)]);
+  console.log([
+    JSON.stringify(session, null, 2),
+    JSON.stringify(lineItems, null, 2),
+  ]);
 
   res.send("Payment successful! Thank you for your purchase.");
 };
